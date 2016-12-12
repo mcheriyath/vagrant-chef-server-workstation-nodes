@@ -1,0 +1,4 @@
+.vagrant
+*.deb
+*.pem
+*.txt
