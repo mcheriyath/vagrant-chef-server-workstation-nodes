@@ -50,9 +50,9 @@ config.vm.define "chefserver" do |ubuntu_host1|
 end
 
   config.vm.define "chefnode1" do |node1|
-    node1.vm.box = "centos/7"
+    node1.vm.box = "ubuntu/trusty64"
     node1.vm.hostname = 'chefnode1'
-    node1.vm.box_url = "centos/7"
+    node1.vm.box_url = "ubuntu/trusty64"
 
     node1.vm.network :private_network, ip: "10.10.0.111"
 

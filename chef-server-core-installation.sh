@@ -14,6 +14,24 @@ sudo chef-server-ctl user-create mcheriyath Mithun Cheriyath mcheriyath@pk.com p
 sudo chef-server-ctl org-create pk prokarma --association_user mcheriyath --filename /home/vagrant/.chef/pk.pem
 sudo chef-server-ctl install chef-manage
 sudo chef-server-ctl reconfigure
-sudo chef-manage-ctl reconfigure
-cp /home/vagrant/.chef/mcheriyath.pem /vagrant/
-cp /home/vagrant/.chef/pk.pem /vagrant/
+
+USERPEM="/vagrant/mcheriyath.pem"
+if [-f "$USERPEM"]
+then
+    rm /vagrant/mcheriyath.pem
+    cp /home/vagrant/.chef/mcheriyath.pem /vagrant/mcheriyath.pem
+else
+    cp /home/vagrant/.chef/mcheriyath.pem /vagrant/mcheriyath.pem
+fi
+
+ORGPEM="/vagrant/pk.pem"
+if [-f "$ORGPEM"]
+then
+    rm /vagrant/pk.pem
+    cp /home/vagrant/.chef/pk.pem /vagrant/pk.pem
+else
+    cp /home/vagrant/.chef/pk.pem /vagrant/pk.pem
+fi
+
+#Do these steps manually on chef server
+#sudo chef-manage-ctl reconfigure
