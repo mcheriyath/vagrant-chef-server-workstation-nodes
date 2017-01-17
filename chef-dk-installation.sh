@@ -1,19 +1,19 @@
 #!/bin/bash
-sudo apt-get install -y git
+sudo apt-get update
+sudo apt-get install -y git --no-install-recommends
 FILE="/vagrant/chefdk_0.19.6-1_amd64.deb"
-if [-f "$FILE"]
-then
-    sudo dpkg -i /vagrant/chefdk_0.19.6-1_amd64.deb
+if [ -f "$FILE" ]; then
+  sudo dpkg -i /vagrant/chefdk_0.19.6-1_amd64.deb
 else
-    wget -O /vagrant/chefdk_0.19.6-1_amd64.deb https://packages.chef.io/files/stable/chefdk/0.19.6/ubuntu/12.04/chefdk_0.19.6-1_amd64.deb
-    sudo dpkg -i /vagrant/chefdk_0.19.6-1_amd64.deb
+  wget -O /vagrant/chefdk_0.19.6-1_amd64.deb https://packages.chef.io/files/stable/chefdk/0.19.6/ubuntu/12.04/chefdk_0.19.6-1_amd64.deb
+  sudo dpkg -i /vagrant/chefdk_0.19.6-1_amd64.deb
 fi
 
-chef verify
+TERM=xterm-256color chef verify
 chef generate repo chef-repo
 cd chef-repo
-mkdir .chef
-sudo apt-get install git
+mkdir -p .chef
+
 git config --global user.name mcheriyath
 git config --global user.email mcheriyath@pk.com
 cp /vagrant/mcheriyath.pem /home/vagrant/chef-repo/.chef/
@@ -21,7 +21,7 @@ cp /vagrant/pk.pem /home/vagrant/chef-repo/.chef/
 cd /home/vagrant/chef-repo
 git init
 echo ".chef" > .gitignore
-echo "*.pem" >> . gitignore
+echo "*.pem" >> .gitignore
 git add .
 git commit -m "initial commit"
 cat << EOF > /home/vagrant/chef-repo/.chef/knife.rb
